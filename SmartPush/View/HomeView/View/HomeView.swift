@@ -13,15 +13,17 @@ class HomeView: BaseUIView {
 	let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HomeView.setCollectionViewLayout())
 
 	override func configureHierarchy() {
-
+		addSubview(collectionView)
 	}
 
 	override func configureLayout() {
-
+		collectionView.snp.makeConstraints {
+			$0.edges.equalTo(self.safeAreaLayoutGuide)
+		}
 	}
 
 	override func configureView() {
-		
+		collectionView.backgroundColor = .clear
 	}
 
 	static func setCollectionViewLayout() -> UICollectionViewLayout{
@@ -33,8 +35,4 @@ class HomeView: BaseUIView {
 		layout.minimumInteritemSpacing = padding
 		return layout
 	}
-}
-
-#Preview {
-	UINavigationController(rootViewController: HomeViewController())
 }
