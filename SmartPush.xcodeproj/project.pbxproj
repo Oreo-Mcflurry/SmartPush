@@ -36,6 +36,8 @@
 		0BB6C20D2B7E4CE600D93950 /* SelectDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C20C2B7E4CE600D93950 /* SelectDateView.swift */; };
 		0BB6C20F2B7E4EE500D93950 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C20E2B7E4EE500D93950 /* SelectCategoryViewController.swift */; };
 		0BB6C2132B7E5DE200D93950 /* ListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2122B7E5DE200D93950 /* ListItems.swift */; };
+		0BB6C2172B7E64D200D93950 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2162B7E64D200D93950 /* DetailViewController.swift */; };
+		0BB6C21A2B7E64FC00D93950 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2192B7E64FC00D93950 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		0BB6C20C2B7E4CE600D93950 /* SelectDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateView.swift; sourceTree = "<group>"; };
 		0BB6C20E2B7E4EE500D93950 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		0BB6C2122B7E5DE200D93950 /* ListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItems.swift; sourceTree = "<group>"; };
+		0BB6C2162B7E64D200D93950 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0BB6C2192B7E64FC00D93950 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 		0BB6C1B22B7C943700D93950 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0BB6C2142B7E64BF00D93950 /* DetailView */,
 				0BB6C2102B7E4EEA00D93950 /* SelectCategory */,
 				0BB6C20B2B7E4CD000D93950 /* SelectDateView */,
 				0BB6C1EA2B7CFD4B00D93950 /* AddScheduleView */,
@@ -283,6 +288,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0BB6C2142B7E64BF00D93950 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C2182B7E64F400D93950 /* View */,
+				0BB6C2152B7E64C600D93950 /* ViewController */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		0BB6C2152B7E64C600D93950 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C2162B7E64D200D93950 /* DetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0BB6C2182B7E64F400D93950 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C2192B7E64FC00D93950 /* DetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -367,7 +397,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB6C20D2B7E4CE600D93950 /* SelectDateView.swift in Sources */,
+				0BB6C21A2B7E64FC00D93950 /* DetailView.swift in Sources */,
 				0BB6C20A2B7E4AFB00D93950 /* UserNotificaionCenterName+Extension.swift in Sources */,
+				0BB6C2172B7E64D200D93950 /* DetailViewController.swift in Sources */,
 				0BB6C2132B7E5DE200D93950 /* ListItems.swift in Sources */,
 				0BB6C1D82B7CBE4500D93950 /* BaseCollectionViewCell.swift in Sources */,
 				0BB6C1F22B7CFF0000D93950 /* AddScheduleView.swift in Sources */,

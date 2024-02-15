@@ -52,10 +52,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 		cell.imageView.image = UIImage(systemName: ListItems.allCases[indexPath.row].getImageName)
 		cell.imageView.tintColor = ListItems.allCases[indexPath.row].getColor
 		cell.countLabel.text = "\(ListItems.getFilteredData(enumCase: ListItems.allCases[indexPath.row], datas: datas.shuffled()).count)"
-
 		return cell
 	}
-	
+
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let vc = DetailViewController()
+		vc.type = ListItems.allCases[indexPath.item]
+		navigationController?.pushViewController(vc, animated: true)
+	}
+
 	func setCollectionView() {
 		homeView.collectionView.delegate = self
 		homeView.collectionView.dataSource = self
