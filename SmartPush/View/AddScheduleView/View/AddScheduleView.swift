@@ -65,12 +65,6 @@ class AddScheduleView: BaseUIView {
 	}
 }
 
-
-#Preview {
-	UINavigationController(rootViewController: AddScheduleViewController())
-}
-
-
 //class AddScheduleView: BaseUIView {
 //	let tableView = UITableView(frame: .zero, style: .insetGrouped)
 //

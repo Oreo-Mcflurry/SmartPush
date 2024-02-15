@@ -62,14 +62,13 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 
 	@objc func saveButtonClicked() {
 		dismiss(animated: true)
-		// TODO: 저장기능
-
-//		let relam = try! Realm()
+		data.title = addView.senderTextField.text!
+		data.memo = addView.memoTextField.text
+		let relam = try! Realm()
+		try! relam.write {
+			relam.add(data)
+		}
 	}
-}
-
-#Preview {
-	UINavigationController(rootViewController: AddScheduleViewController())
 }
 
 protocol PassCategoryDelegate {

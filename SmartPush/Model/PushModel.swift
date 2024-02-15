@@ -11,6 +11,8 @@ import RealmSwift
 class PushModel: Object {
 	@Persisted var id = UUID()
 	@Persisted var addDate = Date()
+	@Persisted var complete: Bool = false
+	@Persisted var stared: Bool = false
 	@Persisted var title: String
 	@Persisted var memo: String?
 	@Persisted var deadline: Date
@@ -24,9 +26,15 @@ class PushModel: Object {
 	}
 
 	override init() {
-		self.title = "title"
-		self.memo = "memo"
+		self.title = ""
+		self.memo = ""
 		self.deadline = Date()
-		self.category = "category"
+		self.category = ""
 	}
+}
+
+enum Categorys: String {
+	case study
+	case coding
+	case game
 }

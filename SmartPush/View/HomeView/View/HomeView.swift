@@ -29,10 +29,14 @@ class HomeView: BaseUIView {
 	static func setCollectionViewLayout() -> UICollectionViewLayout{
 		let layout = UICollectionViewFlowLayout()
 		let padding: CGFloat = 16
-		layout.itemSize = CGSize(width: (UIScreen.main.bounds.width-padding*3)/2, height: (UIScreen.main.bounds.width-padding*3)/3)
-		layout.sectionInset = UIEdgeInsets(top: padding/2, left: padding, bottom: padding, right: padding/2)
+		layout.itemSize = CGSize(width: (UIScreen.main.bounds.width-padding*3)/2, height: (UIScreen.main.bounds.width-padding*3)/4)
+		layout.sectionInset = UIEdgeInsets(top: padding/2, left: padding, bottom: padding/2, right: padding)
 		layout.minimumLineSpacing = padding
 		layout.minimumInteritemSpacing = padding
 		return layout
 	}
+}
+
+#Preview {
+	UINavigationController(rootViewController: HomeViewController())
 }

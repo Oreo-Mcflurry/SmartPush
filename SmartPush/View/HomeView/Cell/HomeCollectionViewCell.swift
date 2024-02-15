@@ -10,25 +10,45 @@ import SnapKit
 
 class HomeCollectionViewCell: BaseCollectionViewCell {
 	let senderNameLabel = UILabel()
-	let timeLabel = UILabel()
+	let countLabel = UILabel()
+	let imageView = UIImageView()
 
 	override func configureHierarchy() {
-		[senderNameLabel, timeLabel].forEach { addSubview($0) }
+		[senderNameLabel, countLabel, imageView].forEach { addSubview($0) }
 	}
 
 	override func configureLayout() {
-		senderNameLabel.snp.makeConstraints {
-			$0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+		imageView.snp.makeConstraints {
+			$0.top.leading.equalToSuperview().inset(10)
+			$0.width.height.equalTo(40)
 		}
 
-		timeLabel.snp.makeConstraints {
-			$0.top.equalTo(senderNameLabel.snp.bottom).offset(20)
-			$0.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
-			$0.bottom.greaterThanOrEqualTo(self)
+		senderNameLabel.snp.makeConstraints {
+			$0.top.greaterThanOrEqualTo(imageView.snp.bottom)
+			$0.leading.equalToSuperview().inset(10)
+			$0.bottom.equalToSuperview().inset(10)
+		}
+
+		countLabel.snp.makeConstraints {
+			$0.top.trailing.equalToSuperview().inset(10)
+			$0.leading.greaterThanOrEqualTo(imageView.snp.trailing).offset(10)
 		}
 	}
 
 	override func configureView() {
+		countLabel.font = .boldSystemFont(ofSize: 30)
+		countLabel.text = "0"
+		senderNameLabel.font = .systemFont(ofSize: 18)
+		self.layer.cornerRadius = 20
+		self.backgroundColor = .gray
+		imageView.clipsToBounds = true
+		DispatchQueue.main.async {
+			self.imageView.layer.cornerRadius = self.imageView.frame.width/2
+		}
 
 	}
+}
+
+#Preview {
+	UINavigationController(rootViewController: HomeViewController())
 }
