@@ -6,20 +6,27 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct PushModel {
-	var id = UUID()
-	var title: String
-	var date: [DayofWeek]
-	var bodyContent: [String]
+class PushModel: Object {
+	@Persisted var id = UUID()
+	@Persisted var addDate = Date()
+	@Persisted var title: String
+	@Persisted var memo: String?
+	@Persisted var deadline: Date
+	@Persisted var category: String
 
-	enum DayofWeek {
-		 case monday
-		 case tuesday
-		 case wednesday
-		 case thursday
-		 case friday
-		 case saturday
-		 case sunday
+	init(title: String, memo: String? = nil, deadline: Date, category: String) {
+		self.title = title
+		self.memo = memo
+		self.deadline = deadline
+		self.category = category
+	}
+
+	override init() {
+		self.title = "title"
+		self.memo = "memo"
+		self.deadline = Date()
+		self.category = "category"
 	}
 }
