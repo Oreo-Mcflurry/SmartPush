@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { result, err in
 				if !result {
 					// TODO: 권한설정 안되어있을때
+
 				}
 		}
 		return true

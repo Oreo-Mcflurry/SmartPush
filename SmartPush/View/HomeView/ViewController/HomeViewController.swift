@@ -28,12 +28,10 @@ class HomeViewController: BaseViewController {
 		let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
 		navigationItem.rightBarButtonItem = addButton
 	}
-
 	@objc func addButtonTapped() {
 		transition(withStyle: .presentFullNavigation, viewController: AddScheduleViewController.self)
 	}
 }
-
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return datas.count
