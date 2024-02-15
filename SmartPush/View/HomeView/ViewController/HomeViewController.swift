@@ -13,14 +13,6 @@ class HomeViewController: BaseViewController {
 	let homeView = HomeView()
 	var datas: Results<PushModel>!
 
-	var defaultListItems: [ListItem] = [
-		 ListItem(title: "오늘", color: UIColor.systemBlue, imageName: "calendar.circle.fill", count: 0),
-		 ListItem(title: "예정", color: UIColor.orange, imageName: "newspaper.circle.fill", count: 0),
-		 ListItem(title: "전체", color: UIColor.darkGray, imageName: "archivebox.circle.fill", count: 0),
-		 ListItem(title: "중요", color: UIColor.systemYellow, imageName: "flag.circle.fill", count: 0),
-		 ListItem(title: "완료", color: UIColor.darkGray, imageName: "checkmark.circle.fill", count: 0)
-	]
-
 	override func loadView() {
 		self.view = homeView
 	}
@@ -30,20 +22,6 @@ class HomeViewController: BaseViewController {
 
 		let realm = try! Realm()
 		datas = realm.objects(PushModel.self)
-
-		defaultListItems[0].count = datas.filter {
-			let calendar = Calendar.current
-			let itemDateComponents = calendar.dateComponents([.year, .month, .day], from: $0.deadline)
-			let currentDateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
-
-			return itemDateComponents.year == currentDateComponents.year && itemDateComponents.month == currentDateComponents.month && itemDateComponents.day == currentDateComponents.day
-		}.count
-
-		defaultListItems[1].count = datas.filter { $0.deadline > Date() }.count
-		defaultListItems[2].count = datas.count
-		defaultListItems[3].count = datas.filter { $0.stared }.count
-		defaultListItems[4].count = datas.filter { $0.complete }.count
-
 		homeView.collectionView.reloadData()
 	}
 
@@ -65,15 +43,16 @@ class HomeViewController: BaseViewController {
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return defaultListItems.count
+		return ListItems.allCases.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-		cell.senderNameLabel.text = defaultListItems[indexPath.row].title
-		cell.imageView.image = UIImage(systemName: defaultListItems[indexPath.row].imageName)
-		cell.imageView.tintColor = defaultListItems[indexPath.row].color
-		cell.countLabel.text = "\(defaultListItems[indexPath.row].count)"
+		cell.senderNameLabel.text = ListItems.allCases[indexPath.row].rawValue
+		cell.imageView.image = UIImage(systemName: ListItems.allCases[indexPath.row].getImageName)
+		cell.imageView.tintColor = ListItems.allCases[indexPath.row].getColor
+		cell.countLabel.text = "\(ListItems.getFilteredData(enumCase: ListItems.allCases[indexPath.row], datas: datas.shuffled()).count)"
+
 		return cell
 	}
 	
@@ -83,3 +62,25 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 		homeView.collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
 	}
 }
+
+
+//switch indexPath.row {
+//case 0:
+//	let value = datas.filter {
+//		let calendar = Calendar.current
+//		let itemDateComponents = calendar.dateComponents([.year, .month, .day], from: $0.deadline)
+//		let currentDateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+//
+//		return itemDateComponents.year == currentDateComponents.year && itemDateComponents.month == currentDateComponents.month && itemDateComponents.day == currentDateComponents.day
+//	}.count
+//	cell.countLabel.text = "\(value)"
+//case 1:
+//	cell.countLabel.text = "\(datas.filter { $0.deadline > Date() }.count)"
+//case 2:
+//	cell.countLabel.text = "\(datas.count)"
+//case 3:
+//	cell.countLabel.text = "\(datas.filter { $0.stared }.count)"
+//case 4:
+//	cell.countLabel.text = "\(datas.filter { $0.complete }.count)"
+//default: print("이럴수가")
+//}
