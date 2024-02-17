@@ -48,7 +48,3 @@ class HomeCollectionViewCell: BaseCollectionViewCell {
 
 	}
 }
-
-#Preview {
-	UINavigationController(rootViewController: HomeViewController())
-}

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class PushModel: Object {
-	@Persisted var id = UUID()
+	@Persisted(primaryKey: true) var id = UUID()
 	@Persisted var addDate = Date()
 	@Persisted var complete: Bool = false
 	@Persisted var stared: Bool = false
@@ -17,12 +17,14 @@ class PushModel: Object {
 	@Persisted var memo: String?
 	@Persisted var deadline: Date
 	@Persisted var category: String
+	@Persisted var priority: Int
 
-	init(title: String, memo: String? = nil, deadline: Date, category: String) {
+	init(title: String, memo: String? = nil, deadline: Date, category: String, priority: Int) {
 		self.title = title
 		self.memo = memo
 		self.deadline = deadline
 		self.category = category
+		self.priority = priority
 	}
 
 	override init() {
@@ -30,11 +32,6 @@ class PushModel: Object {
 		self.memo = ""
 		self.deadline = Date()
 		self.category = ""
+		self.priority = 1
 	}
-}
-
-enum Categorys: String {
-	case study
-	case coding
-	case game
 }

@@ -38,6 +38,9 @@
 		0BB6C2132B7E5DE200D93950 /* ListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2122B7E5DE200D93950 /* ListItems.swift */; };
 		0BB6C2172B7E64D200D93950 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2162B7E64D200D93950 /* DetailViewController.swift */; };
 		0BB6C21A2B7E64FC00D93950 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2192B7E64FC00D93950 /* DetailView.swift */; };
+		0BB6C21F2B80ADD400D93950 /* SelectPriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C21E2B80ADD400D93950 /* SelectPriorityViewController.swift */; };
+		0BB6C2222B80B43800D93950 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2212B80B43800D93950 /* RealmManager.swift */; };
+		0BB6C2252B80DB3900D93950 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C2242B80DB3900D93950 /* DetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		0BB6C2122B7E5DE200D93950 /* ListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItems.swift; sourceTree = "<group>"; };
 		0BB6C2162B7E64D200D93950 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0BB6C2192B7E64FC00D93950 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		0BB6C21E2B80ADD400D93950 /* SelectPriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPriorityViewController.swift; sourceTree = "<group>"; };
+		0BB6C2212B80B43800D93950 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		0BB6C2242B80DB3900D93950 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 		0BB6C19D2B7C92ED00D93950 /* SmartPush */ = {
 			isa = PBXGroup;
 			children = (
+				0BB6C2202B80B42A00D93950 /* RealmManager */,
 				0BB6C1E52B7CE3C200D93950 /* Model */,
 				0BB6C1C82B7C98F700D93950 /* Extension */,
 				0BB6C1B22B7C943700D93950 /* View */,
@@ -121,6 +128,7 @@
 		0BB6C1B22B7C943700D93950 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0BB6C21D2B80ADBD00D93950 /* SelectPriority */,
 				0BB6C2142B7E64BF00D93950 /* DetailView */,
 				0BB6C2102B7E4EEA00D93950 /* SelectCategory */,
 				0BB6C20B2B7E4CD000D93950 /* SelectDateView */,
@@ -291,6 +299,7 @@
 		0BB6C2142B7E64BF00D93950 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				0BB6C2232B80DB3200D93950 /* Cell */,
 				0BB6C2182B7E64F400D93950 /* View */,
 				0BB6C2152B7E64C600D93950 /* ViewController */,
 			);
@@ -311,6 +320,30 @@
 				0BB6C2192B7E64FC00D93950 /* DetailView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0BB6C21D2B80ADBD00D93950 /* SelectPriority */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C21E2B80ADD400D93950 /* SelectPriorityViewController.swift */,
+			);
+			path = SelectPriority;
+			sourceTree = "<group>";
+		};
+		0BB6C2202B80B42A00D93950 /* RealmManager */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C2212B80B43800D93950 /* RealmManager.swift */,
+			);
+			path = RealmManager;
+			sourceTree = "<group>";
+		};
+		0BB6C2232B80DB3200D93950 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0BB6C2242B80DB3900D93950 /* DetailTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +432,7 @@
 				0BB6C20D2B7E4CE600D93950 /* SelectDateView.swift in Sources */,
 				0BB6C21A2B7E64FC00D93950 /* DetailView.swift in Sources */,
 				0BB6C20A2B7E4AFB00D93950 /* UserNotificaionCenterName+Extension.swift in Sources */,
+				0BB6C2252B80DB3900D93950 /* DetailTableViewCell.swift in Sources */,
 				0BB6C2172B7E64D200D93950 /* DetailViewController.swift in Sources */,
 				0BB6C2132B7E5DE200D93950 /* ListItems.swift in Sources */,
 				0BB6C1D82B7CBE4500D93950 /* BaseCollectionViewCell.swift in Sources */,
@@ -409,6 +443,7 @@
 				0BB6C2082B7DFF0D00D93950 /* TextFieldCell.swift in Sources */,
 				0BB6C1D52B7CB9C500D93950 /* ScheduledViewController.swift in Sources */,
 				0BB6C20F2B7E4EE500D93950 /* SelectCategoryViewController.swift in Sources */,
+				0BB6C2222B80B43800D93950 /* RealmManager.swift in Sources */,
 				0BB6C1CC2B7C99B500D93950 /* UINavigation+Extension.swift in Sources */,
 				0BB6C1C32B7C94EB00D93950 /* BaseUIView.swift in Sources */,
 				0BB6C1B72B7C947700D93950 /* BaseViewController.swift in Sources */,
@@ -419,6 +454,7 @@
 				0BB6C1C72B7C960900D93950 /* HomeView.swift in Sources */,
 				0BB6C1A12B7C92ED00D93950 /* SceneDelegate.swift in Sources */,
 				0BB6C1C52B7C953C00D93950 /* HomeViewController.swift in Sources */,
+				0BB6C21F2B80ADD400D93950 /* SelectPriorityViewController.swift in Sources */,
 				0BB6C1E72B7CE3D000D93950 /* PushModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

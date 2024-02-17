@@ -36,7 +36,3 @@ class HomeView: BaseUIView {
 		return layout
 	}
 }
-
-#Preview {
-	UINavigationController(rootViewController: HomeViewController())
-}

@@ -20,8 +20,7 @@ class HomeViewController: BaseViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		let realm = try! Realm()
-		datas = realm.objects(PushModel.self)
+		datas = RealmManager().fetchData()
 		homeView.collectionView.reloadData()
 	}
 
@@ -41,6 +40,7 @@ class HomeViewController: BaseViewController {
 		transition(withStyle: .presentFullNavigation, viewController: AddScheduleViewController.self)
 	}
 }
+
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return ListItems.allCases.count
@@ -51,7 +51,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 		cell.senderNameLabel.text = ListItems.allCases[indexPath.row].rawValue
 		cell.imageView.image = UIImage(systemName: ListItems.allCases[indexPath.row].getImageName)
 		cell.imageView.tintColor = ListItems.allCases[indexPath.row].getColor
-		cell.countLabel.text = "\(ListItems.getFilteredData(enumCase: ListItems.allCases[indexPath.row], datas: datas.shuffled()).count)"
+		cell.countLabel.text = "\(ListItems.getFilteredData(enumCase: ListItems.allCases[indexPath.row], datas: datas).count)"
 		return cell
 	}
 

@@ -30,9 +30,4 @@ class TextFieldCell: BaseTableViewCell {
 			$0.bottom.equalToSuperview().offset(10)
 		}
 	}
-
-	override func configureView() {
-		titleTextfield.placeholder = "Hello"
-		memoTextField.placeholder = "gg"
-	}
 }

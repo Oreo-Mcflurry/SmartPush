@@ -9,16 +9,15 @@ import UIKit
 import SnapKit
 import TextFieldEffects
 
-// 도저히 스트레스 받아서..ㅠㅠㅠ 그냥 UI 기능 다 포기하고 학습에 전념할게요...
-
 class AddScheduleView: BaseUIView {
 	let senderTextField = HoshiTextField()
 	let memoTextField = HoshiTextField()
 	let selectDays = UIButton()
 	let selectCategory = UIButton()
+	let selectPriority = UIButton()
 
 	override func configureHierarchy() {
-		[senderTextField, memoTextField, selectDays, selectCategory].forEach { addSubview($0) }
+		[senderTextField, memoTextField, selectDays, selectCategory, selectPriority].forEach { addSubview($0) }
 	}
 
 	override func configureLayout() {
@@ -45,6 +44,12 @@ class AddScheduleView: BaseUIView {
 			$0.horizontalEdges.equalToSuperview().inset(20)
 			$0.height.equalTo(55)
 		}
+
+		selectPriority.snp.makeConstraints {
+			$0.top.equalTo(selectCategory.snp.bottom).offset(20)
+			$0.horizontalEdges.equalToSuperview().inset(20)
+			$0.height.equalTo(55)
+		}
 	}
 
 	override func configureView() {
@@ -56,12 +61,13 @@ class AddScheduleView: BaseUIView {
 			$0.borderInactiveColor = .black
 		}
 
-		[selectDays, selectCategory].forEach {
+		[selectDays, selectCategory, selectPriority].forEach {
 			$0.backgroundColor = .systemGray5
 			$0.layer.cornerRadius = 15
 		}
 		selectDays.setTitle("날짜를 선택하세요", for: .normal)
 		selectCategory.setTitle("카테고리를 선택하세요", for: .normal)
+		selectPriority.setTitle("우선순위를 선택하세요", for: .normal)
 	}
 }
 
