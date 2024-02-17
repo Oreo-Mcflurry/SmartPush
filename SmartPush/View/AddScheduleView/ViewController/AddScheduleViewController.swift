@@ -30,6 +30,7 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 			addView.selectDays.setTitle("\(data.deadline)", for: .normal)
 			addView.memoTextField.text = data.memo
 			addView.senderTextField.text = data.title
+			addView.selectPriority.setTitle(RealmManager().getPriority(withPriority: data.priority), for: .normal)
 			navigationItem.title = "수정"
 		} else {
 			navigationItem.title = "추가"
@@ -58,7 +59,7 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 		vc.completionHandler = { result in
 			self.data.priority = result
 			print(result)
-			self.addView.selectPriority.setTitle("\(result)", for: .normal)
+			self.addView.selectPriority.setTitle(RealmManager().getPriority(withPriority: result), for: .normal)
 		}
 		navigationController?.pushViewController(vc, animated: true)
 	}

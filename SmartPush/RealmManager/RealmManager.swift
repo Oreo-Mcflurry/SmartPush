@@ -13,6 +13,32 @@ class RealmManager {
 		return try! Realm()
 	}
 
+	func getPriority(withPriority item: Int) -> String {
+		switch item {
+		case 0:
+			return "상"
+		case 1:
+			return "중"
+		case 2:
+			return "하"
+		default:
+			return "알수없음"
+		}
+	}
+
+	func getTitle(_ item: PushModel) -> String {
+		switch item.priority {
+		case 0:
+			return "\(item.title)!"
+		case 1:
+			return "\(item.title)!!"
+		case 2:
+			return "\(item.title)!!!"
+		default:
+			return item.title
+		}
+	}
+
 	func deleteAll() {
 		do {
 			try realm.write {

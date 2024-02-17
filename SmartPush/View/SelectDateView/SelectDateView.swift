@@ -34,5 +34,6 @@ class SelectDateView: BaseViewController {
 	override func configureView() {
 		datePicker.datePickerMode = .date
 		datePicker.preferredDatePickerStyle = .inline
+		datePicker.minimumDate = Date()
 	}
 }

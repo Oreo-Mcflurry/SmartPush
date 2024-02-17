@@ -48,6 +48,7 @@ class PriorityViewController: BaseViewController {
 			$0.backgroundColor = .gray
 			$0.tintColor = .white
 			$0.tag = cnt
+			$0.setTitle(RealmManager().getPriority(withPriority: cnt), for: .normal)
 			cnt += 1
 			$0.addTarget(self, action: #selector(tapPriority(sender:)), for: .touchUpInside)
 		}
