@@ -38,8 +38,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Test", for: indexPath)
-		cell.textLabel?.text = "\(datas[indexPath.row].deadline)"
+		let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.identifier, for: indexPath) as! DetailTableViewCell
+		cell.titleLabel.text = RealmManager().getTitle(datas[indexPath.row])
+		cell.memoLabel.text = datas[indexPath.row].memo
+		cell.categoryLabel.text = datas[indexPath.row].category
+
 		return cell
 	}
 
@@ -71,6 +74,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 	func setTableView() {
 		detailView.tableView.delegate = self
 		detailView.tableView.dataSource = self
-		detailView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Test")
+		detailView.tableView.rowHeight = UITableView.automaticDimension
+		detailView.tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.identifier)
 	}
 }
