@@ -33,10 +33,38 @@ class DetailViewController: BaseViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+
+	override func configureView() {
 		setTableView()
 		navigationItem.title = type.rawValue
 		datas = ListItems.getFilteredData(enumCase: type, datas: RealmManager().fetchData())
 		detailView.tableView.reloadData()
+
+		var menuItems: [UIAction] {
+			return [
+				UIAction(title: "날짜 순", image: nil, handler: { (_) in
+					self.datas = self.datas.sorted(byKeyPath: "deadline", ascending: true)
+					self.detailView.tableView.reloadData()
+				}),
+				UIAction(title: "날짜 역순", image: nil, handler: { (_) in
+					self.datas = self.datas.sorted(byKeyPath: "deadline", ascending: false)
+					self.detailView.tableView.reloadData()
+				}),
+				UIAction(title: "중요도 순", image: nil, handler: { (_) in
+					self.datas = self.datas.sorted(byKeyPath: "priority", ascending: true)
+					self.detailView.tableView.reloadData()
+				}),
+				UIAction(title: "중요도 역순", image: nil, handler: { (_) in
+					self.datas = self.datas.sorted(byKeyPath: "priority", ascending: false)
+					self.detailView.tableView.reloadData()
+				}),
+			]
+		}
+		var demoMenu: UIMenu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "sort", image: nil, primaryAction: nil, menu: demoMenu)
+
+
 	}
 }
 
@@ -95,6 +123,7 @@ extension DetailViewController: TodoDelegate {
 	func todoButtonTapped(id: UUID) {
 		RealmManager().todoUpdate(id)
 		detailView.tableView.reloadData()
+		showToast(withString: "다했다옹")
 	}
 }
 
@@ -102,5 +131,6 @@ extension DetailViewController: StaredDelegate {
 	func starButtonTapped(id: UUID) {
 		RealmManager().starUpdate(id)
 		detailView.tableView.reloadData()
+		showToast(withString: "중요하다옹")
 	}
 }
