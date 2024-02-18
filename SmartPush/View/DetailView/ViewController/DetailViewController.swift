@@ -8,6 +8,14 @@
 import UIKit
 import RealmSwift
 
+protocol TodoDelegate: AnyObject {
+	func todoButtonTapped(id: UUID)
+}
+
+protocol StaredDelegate: AnyObject {
+	func starButtonTapped(id: UUID)
+}
+
 class DetailViewController: BaseViewController {
 
 	let detailView = DetailView()
@@ -42,7 +50,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.titleLabel.text = RealmManager().getTitle(datas[indexPath.row])
 		cell.memoLabel.text = datas[indexPath.row].memo
 		cell.categoryLabel.text = datas[indexPath.row].category
-
+		cell.tododelegate = self
+		cell.starDelegate = self
+		cell.id = datas[indexPath.row].id
+		cell.checkButton.setImage(RealmManager().getTodoSign(withBool: datas[indexPath.row].complete), for: .normal)
+		cell.starButton.setImage(RealmManager().getStarSign(withBool: datas[indexPath.row].stared), for: .normal)
 		return cell
 	}
 
@@ -76,5 +88,19 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		detailView.tableView.dataSource = self
 		detailView.tableView.rowHeight = UITableView.automaticDimension
 		detailView.tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.identifier)
+	}
+}
+
+extension DetailViewController: TodoDelegate {
+	func todoButtonTapped(id: UUID) {
+		RealmManager().todoUpdate(id)
+		detailView.tableView.reloadData()
+	}
+}
+
+extension DetailViewController: StaredDelegate {
+	func starButtonTapped(id: UUID) {
+		RealmManager().starUpdate(id)
+		detailView.tableView.reloadData()
 	}
 }

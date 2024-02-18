@@ -5,7 +5,7 @@
 //  Created by A_Mcflurry on 2/17/24.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
 class RealmManager {
@@ -26,14 +26,22 @@ class RealmManager {
 		}
 	}
 
+	func getTodoSign(withBool value: Bool) -> UIImage {
+		return value ? UIImage(systemName: "circle.fill")! : UIImage(systemName: "circle")!
+	}
+
+	func getStarSign(withBool value: Bool) -> UIImage {
+		return value ? UIImage(systemName: "star.fill")! : UIImage(systemName: "star")!
+	}
+
 	func getTitle(_ item: PushModel) -> String {
 		switch item.priority {
 		case 0:
-			return "\(item.title)!"
+			return "\(item.title)!!!"
 		case 1:
 			return "\(item.title)!!"
 		case 2:
-			return "\(item.title)!!!"
+			return "\(item.title)!"
 		default:
 			return item.title
 		}
@@ -86,6 +94,38 @@ class RealmManager {
 					"priority": item.priority
 				]
 				realm.create(PushModel.self, value: value, update: .modified)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func todoUpdate(_ id: UUID) {
+		do {
+			try realm.write {
+				if let data = realm.object(ofType: PushModel.self, forPrimaryKey: id) {
+					let value: [String: Any] = [
+						"id": data.id,
+						"complete": !data.complete
+						]
+					realm.create(PushModel.self, value: value, update: .modified)
+				}
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func starUpdate(_ id: UUID) {
+		do {
+			try realm.write {
+				if let data = realm.object(ofType: PushModel.self, forPrimaryKey: id) {
+					let value: [String: Any] = [
+						"id": data.id,
+						"stared": !data.stared
+						]
+					realm.create(PushModel.self, value: value, update: .modified)
+				}
 			}
 		} catch {
 			print(error.localizedDescription)

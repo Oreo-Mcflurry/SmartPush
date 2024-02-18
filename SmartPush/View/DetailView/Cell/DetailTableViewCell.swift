@@ -15,8 +15,13 @@ class DetailTableViewCell: BaseTableViewCell {
 	let checkButton = UIButton()
 	let starButton = UIButton()
 
+	var id: UUID?
+	var tododelegate: TodoDelegate?
+	var starDelegate: StaredDelegate?
+
 	override func configureHierarchy() {
-		[titleLabel, memoLabel, categoryLabel, checkButton, starButton].forEach { addSubview($0) }
+		// 와 contentView 이거... 까먹고 있었네요... 이거때문에 3시간 이상 날린거같은데....
+		[titleLabel, memoLabel, categoryLabel, checkButton, starButton].forEach { self.contentView.addSubview($0) }
 	}
 
 	override func configureLayout() {
@@ -26,26 +31,42 @@ class DetailTableViewCell: BaseTableViewCell {
 			$0.size.equalTo(40)
 		}
 
+		starButton.snp.makeConstraints {
+			$0.trailing.equalToSuperview().inset(10)
+			$0.centerY.equalToSuperview()
+			$0.size.equalTo(40)
+		}
+
 		titleLabel.snp.makeConstraints {
-			$0.top.equalToSuperview().inset(10)
-			$0.leading.equalTo(starButton.snp.trailing).offset(10)
+			$0.top.equalTo(self.contentView.snp.top)
+			$0.leading.equalTo(checkButton.snp.trailing).offset(10)
+			$0.trailing.equalTo(starButton.snp.leading).offset(-10)
 		}
 
 		memoLabel.snp.makeConstraints {
 			$0.top.equalTo(titleLabel.snp.bottom).offset(10)
 			$0.leading.equalTo(titleLabel)
+			$0.trailing.equalTo(starButton.snp.leading).offset(-10)
 		}
 
 		categoryLabel.snp.makeConstraints {
 			$0.top.equalTo(memoLabel.snp.bottom).offset(10)
 			$0.leading.equalTo(titleLabel)
+			$0.trailing.equalTo(starButton.snp.leading).offset(-10)
+			$0.bottom.equalToSuperview()
 		}
+	}
 
-		starButton.snp.makeConstraints {
-			$0.trailing.equalToSuperview().inset(10)
-			$0.centerY.equalToSuperview()
-			$0.size.equalTo(40)
-			$0.leading.lessThanOrEqualTo(titleLabel.snp.trailing)
-		}
+	override func configureView() {
+		self.checkButton.addTarget(self, action: #selector(todoButtonClicked), for: .touchUpInside)
+		self.starButton.addTarget(self, action: #selector(starButtonClicked), for: .touchUpInside)
+	}
+
+	@objc func todoButtonClicked() {
+		tododelegate?.todoButtonTapped(id: id!)
+	}
+
+	@objc func starButtonClicked() {
+		starDelegate?.starButtonTapped(id: id!)
 	}
 }

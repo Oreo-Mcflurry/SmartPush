@@ -61,7 +61,7 @@ enum ListItems: String, CaseIterable {
 			return filteredArray
 
 		case .will:
-			return datas.where { $0.deadline > Date() }
+			return datas.where { $0.deadline > Date() && !$0.complete }
 		case .all:
 			return datas
 		case .star:
