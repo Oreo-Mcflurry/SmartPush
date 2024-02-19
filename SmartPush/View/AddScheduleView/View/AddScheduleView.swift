@@ -15,9 +15,11 @@ class AddScheduleView: BaseUIView {
 	let selectDays = UIButton()
 	let selectCategory = UIButton()
 	let selectPriority = UIButton()
+	let imageView = UIImageView()
+	let imageButton = UIButton()
 
 	override func configureHierarchy() {
-		[senderTextField, memoTextField, selectDays, selectCategory, selectPriority].forEach { addSubview($0) }
+		[senderTextField, memoTextField, selectDays, selectCategory, selectPriority, imageView, imageButton].forEach { self.addSubview($0) }
 	}
 
 	override func configureLayout() {
@@ -50,6 +52,18 @@ class AddScheduleView: BaseUIView {
 			$0.horizontalEdges.equalToSuperview().inset(20)
 			$0.height.equalTo(55)
 		}
+
+		imageView.snp.makeConstraints {
+			$0.top.equalTo(selectPriority.snp.bottom).offset(20)
+			$0.centerX.equalToSuperview()
+			$0.size.equalTo(150)
+		}
+
+		imageButton.snp.makeConstraints {
+			$0.top.equalTo(imageView.snp.bottom).offset(20)
+			$0.horizontalEdges.equalToSuperview().inset(20)
+			$0.height.equalTo(55)
+		}
 	}
 
 	override func configureView() {
@@ -61,13 +75,16 @@ class AddScheduleView: BaseUIView {
 			$0.borderInactiveColor = .black
 		}
 
-		[selectDays, selectCategory, selectPriority].forEach {
+		[selectDays, selectCategory, selectPriority, imageButton].forEach {
 			$0.backgroundColor = .systemGray5
 			$0.layer.cornerRadius = 15
 		}
 		selectDays.setTitle("날짜를 선택하세요", for: .normal)
 		selectCategory.setTitle("카테고리를 선택하세요", for: .normal)
 		selectPriority.setTitle("우선순위를 선택하세요", for: .normal)
+		imageButton.setTitle("사진 선택", for: .normal)
+		imageView.layer.borderColor = UIColor.black.cgColor
+		imageView.layer.borderWidth = 1
 	}
 }
 

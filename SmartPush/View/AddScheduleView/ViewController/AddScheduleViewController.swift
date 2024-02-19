@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
+class AddScheduleViewController: BaseViewController, PassCategoryDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
 	let addView = AddScheduleView()
 	let data = PushModel()
@@ -31,6 +31,7 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 			addView.memoTextField.text = data.memo
 			addView.senderTextField.text = data.title
 			addView.selectPriority.setTitle(RealmManager().getPriority(withPriority: data.priority), for: .normal)
+			addView.imageView.image = RealmManager().loadImageToDocument(withId: "\(data.id)")
 			navigationItem.title = "수정"
 		} else {
 			navigationItem.title = "추가"
@@ -47,6 +48,25 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 		addView.selectCategory.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
 		addView.selectDays.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
 		addView.selectPriority.addTarget(self, action: #selector(priortyButtonTapped), for: .touchUpInside)
+		addView.imageButton.addTarget(self, action: #selector(imageClicked), for: .touchUpInside)
+	}
+
+	@objc func imageClicked() {
+		let vc = UIImagePickerController()
+		vc.allowsEditing = true
+		vc.delegate = self
+		present(vc, animated: true)
+	}
+
+	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+		dismiss(animated: true)
+	}
+
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+		if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+			addView.imageView.image = pickedImage
+		}
+		dismiss(animated: true)
 	}
 
 	func passCategory(text: String) {
@@ -102,10 +122,13 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate {
 		if isEdit {
 			dismiss(animated: true)
 			RealmManager().updateItem(data)
+			RealmManager().deleteImageToDocument(withId: "\(data.id)")
 		} else {
 			dismiss(animated: true)
 			RealmManager().addItem(data)
+
 		}
+		RealmManager().saveImageToDocument(image: addView.imageView.image ?? UIImage(systemName: "star")!, withId: "\(data.id)")
 	}
 }
 

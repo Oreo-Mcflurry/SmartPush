@@ -50,6 +50,7 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.id = datas[indexPath.row].id
 		cell.checkButton.setImage(RealmManager().getTodoSign(withBool: datas[indexPath.row].complete), for: .normal)
 		cell.starButton.setImage(RealmManager().getStarSign(withBool: datas[indexPath.row].stared), for: .normal)
+		cell.imageView?.image = RealmManager().loadImageToDocument(withId: "\(datas[indexPath.row].id)")
 		return cell
 	}
 

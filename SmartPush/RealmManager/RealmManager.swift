@@ -26,6 +26,40 @@ class RealmManager {
 		}
 	}
 
+	// enum같은걸로 처리하고 싶은데 귀찮음 이슈로 미루겠습니다
+	func saveImageToDocument(image: UIImage, withId id: String) {
+		guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+		let fileUrl = documentDirectory.appendingPathComponent("\(id).jpeg")
+		guard let data = image.jpegData(compressionQuality: 0.5) else { return }
+		do {
+			try data.write(to: fileUrl)
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func deleteImageToDocument(withId id: String) {
+		guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+		let fileUrl = documentDirectory.appendingPathComponent("\(id).jpeg")
+		if FileManager.default.fileExists(atPath: fileUrl.path()) {
+			do {
+				try FileManager.default.removeItem(at: fileUrl)
+			} catch {
+				print(error.localizedDescription)
+			}
+		}
+	}
+
+	func loadImageToDocument(withId id: String) -> UIImage {
+		guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return UIImage(systemName: "star")! }
+		let fileUrl = documentDirectory.appendingPathComponent("\(id).jpeg")
+		if FileManager.default.fileExists(atPath: fileUrl.path()) {
+			return UIImage(contentsOfFile: fileUrl.path())!
+		}
+		return UIImage(systemName: "star")!
+	}
+
 	func getTodoSign(withBool value: Bool) -> UIImage {
 		return value ? UIImage(systemName: "circle.fill")! : UIImage(systemName: "circle")!
 	}
