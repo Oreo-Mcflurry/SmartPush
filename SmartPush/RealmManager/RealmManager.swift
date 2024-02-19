@@ -135,4 +135,11 @@ class RealmManager {
 	func fetchData() -> Results<PushModel> {
 		return realm.objects(PushModel.self)
 	}
+
+	func fetchDataWithDate(date: Date) -> Results<PushModel> {
+		let start = Calendar.current.startOfDay(for: date)
+		let end = Calendar.current.date(byAdding: .day, value: 1, to: start)!
+		let predicate = NSPredicate (format: "deadline >= %@ && deadline < %@",start as NSDate, end as NSDate)
+		return realm.objects(PushModel.self).filter(predicate)
+	}
 }
