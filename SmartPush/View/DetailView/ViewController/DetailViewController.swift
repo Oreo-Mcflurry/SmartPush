@@ -61,7 +61,7 @@ class DetailViewController: BaseViewController {
 				}),
 			]
 		}
-		var demoMenu: UIMenu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+		let demoMenu: UIMenu = UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "sort", image: nil, primaryAction: nil, menu: demoMenu)
 
 

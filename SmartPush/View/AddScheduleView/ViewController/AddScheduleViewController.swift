@@ -48,15 +48,25 @@ class AddScheduleViewController: BaseViewController, PassCategoryDelegate, UIIma
 		addView.selectCategory.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
 		addView.selectDays.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
 		addView.selectPriority.addTarget(self, action: #selector(priortyButtonTapped), for: .touchUpInside)
-		addView.imageButton.addTarget(self, action: #selector(imageClicked), for: .touchUpInside)
+		let menuItems: [UIAction] = [
+			 UIAction(title: "사진첩에서 가져오기", image: nil, handler: { (_) in
+				  let vc = UIImagePickerController()
+				  vc.allowsEditing = true
+				  vc.delegate = self
+				  self.present(vc, animated: true)
+			 }),
+			 UIAction(title: "카메라로 촬영", image: nil, handler: { (_) in
+				  let imagePicker = UIImagePickerController()
+				  imagePicker.delegate = self
+				  imagePicker.sourceType = .camera
+				  imagePicker.allowsEditing = true
+				  self.present(imagePicker, animated: true, completion: nil)
+			 }),
+		]
+	  addView.imageButton.menu = UIMenu(title: "title입니다",image: UIImage(systemName: "heart.fill"),identifier: nil,options: .displayInline,children: menuItems)
+		addView.imageButton.showsMenuAsPrimaryAction = true
 	}
 
-	@objc func imageClicked() {
-		let vc = UIImagePickerController()
-		vc.allowsEditing = true
-		vc.delegate = self
-		present(vc, animated: true)
-	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 		dismiss(animated: true)
