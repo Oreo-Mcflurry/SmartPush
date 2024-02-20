@@ -26,8 +26,62 @@ enum RealmManagerPlus {
 		}
 	}
 
+	// MARK: - Fetch
 	func fetchData() -> Results<Object> {
 		return realm.objects(self.getModelType())
+	}
+
+	// MARK: - Delete
+	func deleteData(_ id: UUID) {
+		do {
+			try realm.write {
+				if let data = realm.object(ofType: self.getModelType(), forPrimaryKey: id) {
+					if self == .category {
+						realm.objects(PushModel.self).where { $0.category.category == (data as! PushModel).category?.category }.forEach {
+							$0.category?.category = nil
+						}
+					}
+					realm.delete(data)
+				}
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	// MARK: - Update
+	func updateDate(_ model: Object) {
+		do {
+			try realm.write {
+				let value: [String: Any?]
+
+				switch self {
+				case .pushModel:
+					let item = model as! PushModel
+					value = [
+						"id": item.id,
+						"addDate": item.addDate,
+						"complete": item.complete,
+						"stared": item.stared,
+						"title": item.title,
+						"memo": item.memo ?? "",
+						"deadline": item.deadline,
+						"category": item.category,
+						"priority": item.priority
+					]
+				case .category:
+					let item = model as! Categorys
+					value = [
+						"id": item.id,
+						"addDate": item.addDate,
+						"category": item.category
+					]
+				}
+				realm.create(self.getModelType(), value: value, update: .modified)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
 	}
 }
 
