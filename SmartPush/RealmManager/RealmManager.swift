@@ -113,6 +113,8 @@ enum RealmManagerPlus {
 	}
 }
 
+
+// TODO: - Delete
 // 으으아악 enum이나 제네릭 같은걸로 묶어야 할거같은데..
 class RealmManager {
 	var realm: Realm {
