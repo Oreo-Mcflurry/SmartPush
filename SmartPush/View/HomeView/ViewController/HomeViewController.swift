@@ -12,32 +12,59 @@ class HomeViewController: BaseViewController {
 
 	let homeView = HomeView()
 	var datas: Results<PushModel>!
+	var category: Results<Categorys>!
 
 	override func loadView() {
 		self.view = homeView
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		datas = RealmManager().fetchData()
+	@objc func detectChangeValue() {
 		homeView.collectionView.reloadData()
+		homeView.tableView.reloadData()
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		NotificationCenter.default.addObserver(self, selector: #selector(detectChangeValue), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+		datas = RealmManager().fetchData()
+		category = RealmManager().fetchCategory()
 	}
 
 	override func configureView() {
 		navigationItem.title = "ALL"
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setCollectionView()
-
+		setTableView()
 		let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
 		navigationItem.rightBarButtonItem = addButton
 	}
 	@objc func addButtonTapped() {
 		transition(withStyle: .presentFullNavigation, viewController: AddScheduleViewController.self)
+	}
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return category.count
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: HomeViewController.identifier)!
+		cell.textLabel?.text = "\(category[indexPath.row].category!) \(category[indexPath.row].main.count)개"
+		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let vc = DetailViewController()
+
+		vc.category = category[indexPath.row]
+		navigationController?.pushViewController(vc, animated: true)
+	}
+
+	func setTableView() {
+		homeView.tableView.dataSource = self
+		homeView.tableView.delegate = self
+		homeView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewController.identifier)
 	}
 }
 

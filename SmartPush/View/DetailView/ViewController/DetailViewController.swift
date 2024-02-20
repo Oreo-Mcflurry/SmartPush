@@ -21,6 +21,7 @@ class DetailViewController: BaseViewController {
 	let detailView = DetailView()
 	var type: ListItems = .all
 	var datas: Results<PushModel>!
+	var category: Categorys? = nil
 
 	override func loadView() {
 		self.view = detailView
@@ -37,8 +38,13 @@ class DetailViewController: BaseViewController {
 
 	override func configureView() {
 		setTableView()
-		navigationItem.title = type.rawValue
-		datas = ListItems.getFilteredData(enumCase: type, datas: RealmManager().fetchData())
+		if category == nil {
+			navigationItem.title = type.rawValue
+			datas = ListItems.getFilteredData(enumCase: type, datas: RealmManager().fetchData())
+		} else {
+			navigationItem.title = category!.category
+			datas = RealmManager().fetchData().where { $0.category == category}
+		}
 		detailView.tableView.reloadData()
 
 		var menuItems: [UIAction] {
@@ -77,7 +83,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.identifier, for: indexPath) as! DetailTableViewCell
 		cell.titleLabel.text = RealmManager().getTitle(datas[indexPath.row])
 		cell.memoLabel.text = datas[indexPath.row].memo
-		cell.categoryLabel.text = datas[indexPath.row].category
+		cell.categoryLabel.text = datas[indexPath.row].category?.category
 		cell.tododelegate = self
 		cell.starDelegate = self
 		cell.id = datas[indexPath.row].id
@@ -91,15 +97,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		let vc = AddScheduleViewController()
 		vc.isEdit = true
 		// vc.data를 var로 바꾸고 값을 그대로 넣을라했는데, 메모리 주소까지 복사되는 바람에 realm.write밖에서 수정하지 말라는 오류 발생.
-		vc.data.id = datas[indexPath.row].id
-		vc.data.deadline = datas[indexPath.row].deadline
-		vc.data.category = datas[indexPath.row].category
-		vc.data.memo = datas[indexPath.row].memo
-		vc.data.title = datas[indexPath.row].title
-		vc.data.stared = datas[indexPath.row].stared
-		vc.data.addDate = datas[indexPath.row].addDate
-		vc.data.complete = datas[indexPath.row].complete
-		vc.data.priority = datas[indexPath.row].priority
+		vc.id = datas[indexPath.row].id
+		vc.deadline = datas[indexPath.row].deadline
+		vc.category = datas[indexPath.row].category
+		vc.memo = datas[indexPath.row].memo
+		vc.titlestr = datas[indexPath.row].title
+		vc.stared = datas[indexPath.row].stared
+		vc.addDate = datas[indexPath.row].addDate
+		vc.complete = datas[indexPath.row].complete
+		vc.priority = datas[indexPath.row].priority
 		let nav = UINavigationController(rootViewController: vc)
 		nav.modalPresentationStyle = .fullScreen
 		present(nav, animated: true)

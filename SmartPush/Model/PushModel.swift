@@ -16,10 +16,10 @@ class PushModel: Object {
 	@Persisted var title: String
 	@Persisted var memo: String?
 	@Persisted var deadline: Date
-	@Persisted var category: String
+	@Persisted var category: Categorys?
 	@Persisted var priority: Int
 
-	init(title: String, memo: String? = nil, deadline: Date, category: String, priority: Int) {
+	init(title: String, memo: String? = nil, deadline: Date, category: Categorys, priority: Int) {
 		self.title = title
 		self.memo = memo
 		self.deadline = deadline
@@ -31,7 +31,23 @@ class PushModel: Object {
 		self.title = ""
 		self.memo = ""
 		self.deadline = Date()
-		self.category = ""
+		self.category = Categorys(category: "")
 		self.priority = 1
+	}
+}
+
+class Categorys: Object {
+	@Persisted(primaryKey: true) var id = UUID()
+	@Persisted var addDate = Date()
+	@Persisted var category: String?
+	@Persisted(originProperty: "category") var main: LinkingObjects<PushModel>
+
+	convenience init(id: UUID? = nil, addDate: Date? = nil, category: String) {
+		self.init()
+		if let id, let addDate {
+			self.id = id
+			self.addDate = addDate
+		}
+		self.category = category
 	}
 }

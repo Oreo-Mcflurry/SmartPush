@@ -11,19 +11,27 @@ import SnapKit
 class HomeView: BaseUIView {
 
 	let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HomeView.setCollectionViewLayout())
-
+	let tableView = UITableView()
 	override func configureHierarchy() {
 		addSubview(collectionView)
+		addSubview(tableView)
 	}
 
 	override func configureLayout() {
 		collectionView.snp.makeConstraints {
-			$0.edges.equalTo(self.safeAreaLayoutGuide)
+			$0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+			$0.height.equalTo(350)
+		}
+
+		tableView.snp.makeConstraints {
+			$0.top.equalTo(collectionView.snp.bottom)
+			$0.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
 		}
 	}
 
 	override func configureView() {
 		collectionView.backgroundColor = .clear
+		tableView.backgroundColor = .clear
 	}
 
 	static func setCollectionViewLayout() -> UICollectionViewLayout{
