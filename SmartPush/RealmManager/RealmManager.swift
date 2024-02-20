@@ -8,6 +8,29 @@
 import UIKit
 import RealmSwift
 
+
+enum RealmManagerPlus {
+	case pushModel
+	case category
+
+	var realm: Realm {
+		return try! Realm()
+	}
+
+	private func getModelType() -> Object.Type {
+		switch self {
+		case .pushModel:
+			return PushModel.self
+		case .category:
+			return Categorys.self
+		}
+	}
+
+	func fetchData() -> Results<Object> {
+		return realm.objects(self.getModelType())
+	}
+}
+
 // 으으아악 enum이나 제네릭 같은걸로 묶어야 할거같은데..
 class RealmManager {
 	var realm: Realm {
