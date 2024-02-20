@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4837FF2B84F1AA00112D01 /* Document+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4837FE2B84F1AA00112D01 /* Document+Extension.swift */; };
 		0BB6C19F2B7C92ED00D93950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C19E2B7C92ED00D93950 /* AppDelegate.swift */; };
 		0BB6C1A12B7C92ED00D93950 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C1A02B7C92ED00D93950 /* SceneDelegate.swift */; };
 		0BB6C1A82B7C92EF00D93950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB6C1A72B7C92EF00D93950 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B4837FE2B84F1AA00112D01 /* Document+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Extension.swift"; sourceTree = "<group>"; };
 		0BB6C19B2B7C92ED00D93950 /* SmartPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB6C19E2B7C92ED00D93950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BB6C1A02B7C92ED00D93950 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				0BB6C2212B80B43800D93950 /* RealmManager.swift */,
+				0B4837FE2B84F1AA00112D01 /* Document+Extension.swift */,
 			);
 			path = RealmManager;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				0BB6C1C32B7C94EB00D93950 /* BaseUIView.swift in Sources */,
 				0BB6C1B72B7C947700D93950 /* BaseViewController.swift in Sources */,
 				0BB6C1DA2B7CBFF900D93950 /* HomeCollectionViewCell.swift in Sources */,
+				0B4837FF2B84F1AA00112D01 /* Document+Extension.swift in Sources */,
 				0BB6C1EF2B7CFDE600D93950 /* Transition+Extension.swift in Sources */,
 				0BB6C19F2B7C92ED00D93950 /* AppDelegate.swift in Sources */,
 				0BB6C2062B7DFED900D93950 /* BaseTableViewCell.swift in Sources */,

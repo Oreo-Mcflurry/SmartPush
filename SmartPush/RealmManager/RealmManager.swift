@@ -10,8 +10,13 @@ import RealmSwift
 
 
 enum RealmManagerPlus {
-	case pushModel
-	case category
+	case pushModel(update: Update?)
+	case category(name: String)
+
+	enum Update {
+		case star
+		case todo
+	}
 
 	var realm: Realm {
 		return try! Realm()
@@ -26,38 +31,40 @@ enum RealmManagerPlus {
 		}
 	}
 
-	// MARK: - Fetch
-	func fetchData() -> Results<Object> {
-		return realm.objects(self.getModelType())
-	}
-
-	// MARK: - Delete
-	func deleteData(_ id: UUID) {
+	// MARK: - Create
+	func createData(_ model: Object) {
 		do {
 			try realm.write {
-				if let data = realm.object(ofType: self.getModelType(), forPrimaryKey: id) {
-					if self == .category {
-						realm.objects(PushModel.self).where { $0.category.category == (data as! PushModel).category?.category }.forEach {
-							$0.category?.category = nil
-						}
-					}
-					realm.delete(data)
-				}
+				realm.add(model)
 			}
 		} catch {
 			print(error.localizedDescription)
 		}
 	}
 
+	// MARK: - Read
+	func fetchData() -> Results<Object> {
+		return realm.objects(self.getModelType())
+	}
+
 	// MARK: - Update
 	func updateDate(_ model: Object) {
 		do {
 			try realm.write {
+
 				let value: [String: Any?]
+				let item = model as! PushModel
 
 				switch self {
-				case .pushModel:
-					let item = model as! PushModel
+				case .pushModel(let update):
+					switch update {
+					case .star:
+						item.stared.toggle()
+					case .todo:
+						item.complete.toggle()
+					case nil:
+						break
+					}
 					value = [
 						"id": item.id,
 						"addDate": item.addDate,
@@ -69,7 +76,9 @@ enum RealmManagerPlus {
 						"category": item.category,
 						"priority": item.priority
 					]
+
 				case .category:
+
 					let item = model as! Categorys
 					value = [
 						"id": item.id,
@@ -78,6 +87,25 @@ enum RealmManagerPlus {
 					]
 				}
 				realm.create(self.getModelType(), value: value, update: .modified)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	// MARK: - Delete
+	func deleteData(_ id: UUID) {
+		do {
+			try realm.write {
+				if let data = realm.object(ofType: self.getModelType(), forPrimaryKey: id) {
+					// if case문을 배워놓고 쓸대가 없다고 생각했는데 이런곳에 쓰면 좋겠더라구요
+					if case .category = self {
+						realm.objects(PushModel.self).where { $0.category.category == (data as! PushModel).category?.category }.forEach {
+							$0.category?.category = nil
+						}
+					}
+					realm.delete(data)
+				}
 			}
 		} catch {
 			print(error.localizedDescription)
@@ -108,7 +136,7 @@ class RealmManager {
 		}
 	}
 
-	// enum같은걸로 처리하고 싶은데 귀찮음 이슈로 미루겠습니다
+
 	func saveImageToDocument(image: UIImage, withId id: String) {
 		guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
 
