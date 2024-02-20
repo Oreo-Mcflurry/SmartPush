@@ -19,7 +19,7 @@ class PushModel: Object {
 	@Persisted var category: Categorys?
 	@Persisted var priority: Int
 
-	init(title: String, memo: String? = nil, deadline: Date, category: Categorys, priority: Int) {
+	init(title: String, memo: String? = nil, deadline: Date, category: Categorys?, priority: Int) {
 		self.title = title
 		self.memo = memo
 		self.deadline = deadline

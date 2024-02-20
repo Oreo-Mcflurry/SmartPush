@@ -122,22 +122,23 @@ class AddScheduleViewController: BaseViewController, UIImagePickerControllerDele
 			return
 		}
 
+
 		do {
 			try RealmManager().realm.write {
 				if let data = RealmManager().realm.objects(Categorys.self).where({ $0.category == categoryStr }).first {
 					self.category = data
 				} else {
-					self.category = RealmManager().realm.objects(Categorys.self).randomElement()
+					self.category = nil
 				}
 			}
 		} catch {
 			print(error.localizedDescription)
 		}
 
-		let data: PushModel = PushModel(title: addView.senderTextField.text!, memo: addView.memoTextField.text, deadline: deadline, category: category!, priority: priority)
-//		if categoryStr != "" {
-//		RealmManager().categoryUpdate(data.id, categorystr: categoryStr)
-//		}
+		let data = PushModel(title: addView.senderTextField.text!, memo: addView.memoTextField.text, deadline: deadline, category: category, priority: priority)
+		if categoryStr != "" {
+		RealmManager().categoryUpdate(data.id, categorystr: categoryStr)
+		}
 		if isEdit {
 			dismiss(animated: true)
 			data.id = id
