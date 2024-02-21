@@ -22,7 +22,7 @@ enum RealmManagerPlus {
 		return try! Realm()
 	}
 
-	private func getModelType() -> Object.Type {
+	private func getModelType<T: RealmFetchable>() -> T.Type {
 		switch self {
 		case .pushModel:
 			return PushModel.self
@@ -43,8 +43,8 @@ enum RealmManagerPlus {
 	}
 
 	// MARK: - Read
-	func fetchData() -> Results<Object> {
-		return realm.objects(self.getModelType())
+	func fetchData<T: RealmFetchable>(type: T.Type) -> Results<T> {
+		return realm.objects(T.self)
 	}
 
 	// MARK: - Update

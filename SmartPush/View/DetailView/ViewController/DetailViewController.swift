@@ -40,7 +40,7 @@ class DetailViewController: BaseViewController {
 		setTableView()
 		if category == nil {
 			navigationItem.title = type.rawValue
-			datas = ListItems.getFilteredData(enumCase: type, datas: RealmManager().fetchData())
+			datas = ListItems.getFilteredData(enumCase: type, datas: RealmManagerPlus.pushModel(update: nil).fetchData() as! Results<PushModel>)
 		} else {
 			navigationItem.title = category!.category
 			datas = RealmManager().fetchData().where { $0.category == category}
