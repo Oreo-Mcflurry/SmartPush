@@ -8,6 +8,22 @@
 import UIKit
 import RealmSwift
 
+class RealmRepository {
+	enum RealmTypes {
+		case pushModel
+		case category
+	}
+
+	var realm: Realm {
+		return try! Realm()
+	}
+
+	// MARK: - Create
+	func createData<T: RealmFetchable>(type: T.Type) -> Results<T> {
+		return realm.objects(type)
+	}
+}
+
 //enum RealmManagerPlus {
 //	case pushModel(update: Update?)
 //	case category(name: String)
@@ -72,7 +88,7 @@ import RealmSwift
 //						"stared": item.stared,
 //						"title": item.title,
 //						"memo": item.memo ?? "",
-//						"deadline": item.deadline,
+//						"deadline": item.deadlineDate,
 //						"category": item.category,
 //						"priority": item.priority
 //					]
@@ -237,7 +253,7 @@ class RealmManager {
 					"stared": item.stared,
 					"title": item.title,
 					"memo": item.memo,
-					"deadline": item.deadline,
+					"deadline": item.deadlineDate,
 					"category": item.category,
 					"priority": item.priority
 				]
@@ -372,7 +388,7 @@ class RealmManager {
 	func fetchDataWithDate(date: Date) -> Results<PushModel> {
 		let start = Calendar.current.startOfDay(for: date)
 		let end = Calendar.current.date(byAdding: .day, value: 1, to: start)!
-		let predicate = NSPredicate (format: "deadline >= %@ && deadline < %@",start as NSDate, end as NSDate)
+		let predicate = NSPredicate (format: "deadlineDate >= %@ && deadlineDate < %@",start as NSDate, end as NSDate)
 		return realm.objects(PushModel.self).filter(predicate)
 	}
 }

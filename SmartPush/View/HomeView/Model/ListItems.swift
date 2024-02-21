@@ -56,12 +56,12 @@ enum ListItems: String, CaseIterable {
 				let calendar = Calendar.current
 				let start = calendar.startOfDay(for: Date())
 				let end = calendar.date(byAdding: DateComponents(day: 1), to: start)
-				return  $0.deadline >= start && $0.deadline < end!
+				return  $0.deadlineDate >= start && $0.deadlineDate < end!
 			}
 			return filteredArray
 
 		case .will:
-			return datas.where { $0.deadline > Date() && !$0.complete }
+			return datas.where { $0.deadlineDate > Date() && !$0.complete }
 		case .all:
 			return datas
 		case .star:

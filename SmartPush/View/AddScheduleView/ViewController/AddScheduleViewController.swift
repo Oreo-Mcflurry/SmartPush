@@ -81,6 +81,17 @@ class AddScheduleViewController: BaseViewController, UIImagePickerControllerDele
 		addView.imageButton.showsMenuAsPrimaryAction = true
 	}
 
+	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+		dismiss(animated: true)
+	}
+
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+		if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+			addView.imageView.image = pickedImage
+		}
+		dismiss(animated: true)
+	}
+
 	@objc func priortyButtonTapped() {
 		let vc = PriorityViewController()
 		vc.completionHandler = { result in

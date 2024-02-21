@@ -29,14 +29,14 @@ class ChartViewController: BaseViewController {
 	}
 
 	override func configureView() {
-		datas = RealmManager().fetchData().sorted(byKeyPath: "deadline", ascending: true)
+		datas = RealmManager().fetchData().sorted(byKeyPath: "deadlineDate", ascending: true)
 		guard let first = datas.first, let last = datas.last else { return }
 		var entry: [ChartDataEntry] = []
 		let calendar = Calendar.current
-		var currentDate = first.deadline
+		var currentDate = first.deadlineDate
 
 		var currentIndex = 0
-		while currentDate <= last.deadline {
+		while currentDate <= last.deadlineDate {
 			let newData = ChartDataEntry(x: Double(currentIndex+1),
 												  y: Double(RealmManager().fetchDataWithDate(date: currentDate).count))
 			entry.append(newData)

@@ -59,7 +59,7 @@ extension ScheduledViewController: UITableViewDelegate, UITableViewDataSource {
 		vc.isEdit = true
 		// vc.data를 var로 바꾸고 값을 그대로 넣을라했는데, 메모리 주소까지 복사되는 바람에 realm.write밖에서 수정하지 말라는 오류 발생.
 		vc.id = datas[indexPath.row].id
-		vc.deadline = datas[indexPath.row].deadline
+		vc.deadline = datas[indexPath.row].deadlineDate
 		vc.category = datas[indexPath.row].category!
 		vc.memo = datas[indexPath.row].memo
 		vc.titlestr = datas[indexPath.row].title

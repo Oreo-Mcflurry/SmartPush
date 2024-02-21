@@ -6,11 +6,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		let configuration = Realm.Configuration(schemaVersion: 1) { migration, oldSchemaVersion in
+			// 단순한 테이블 컬럼 추가되는 경우에는 별도 작성 X
+			if oldSchemaVersion < 1 {
+				migration.enumerateObjects(ofType: PushModel.className()) { oldObject, newObject in
+					guard let new = newObject else { return }
+					guard let oldObject else { return }
+					new["deadlineDate"] = oldObject["deadline"]
+				}
+			}
+		}
+		Realm.Configuration.defaultConfiguration = configuration
 		
 		return true
 	}
