@@ -40,7 +40,7 @@ class DetailViewController: BaseViewController {
 		setTableView()
 		if category == nil {
 			navigationItem.title = type.rawValue
-			datas = ListItems.getFilteredData(enumCase: type, datas: RealmManagerPlus.pushModel(update: nil).fetchData() as! Results<PushModel>)
+			datas = ListItems.getFilteredData(enumCase: type, datas: RealmManager().fetchData())
 		} else {
 			navigationItem.title = category!.category
 			datas = RealmManager().fetchData().where { $0.category == category}
@@ -89,10 +89,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.id = datas[indexPath.row].id
 		cell.checkButton.setImage(RealmManager().getTodoSign(withBool: datas[indexPath.row].complete), for: .normal)
 		cell.starButton.setImage(RealmManager().getStarSign(withBool: datas[indexPath.row].stared), for: .normal)
-		cell.imagesView.image = RealmManager().loadImageToDocument(withId: "\(datas[indexPath.row].id)")
+		cell.imagesView.setImage(RealmManager().loadImageToDocument(withId: "\(datas[indexPath.row].id)"), for: .normal)
+		cell.completionHandler = { vc in
+			self.present(vc, animated: true)
+		}
 		return cell
 	}
 
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = AddScheduleViewController()
 		vc.isEdit = true

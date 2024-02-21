@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0B4837FF2B84F1AA00112D01 /* Document+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4837FE2B84F1AA00112D01 /* Document+Extension.swift */; };
+		0B4838112B85D88900112D01 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 0B4838102B85D88900112D01 /* DGCharts */; };
+		0B4838132B85D88900112D01 /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0B4838122B85D88900112D01 /* DGChartsDynamic */; };
+		0B4838182B85D8B000112D01 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4838172B85D8B000112D01 /* ChartViewController.swift */; };
+		0B48381B2B85DE7000112D01 /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B48381A2B85DE7000112D01 /* DetailImageView.swift */; };
 		0BB6C19F2B7C92ED00D93950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C19E2B7C92ED00D93950 /* AppDelegate.swift */; };
 		0BB6C1A12B7C92ED00D93950 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C1A02B7C92ED00D93950 /* SceneDelegate.swift */; };
 		0BB6C1A82B7C92EF00D93950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB6C1A72B7C92EF00D93950 /* Assets.xcassets */; };
@@ -48,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		0B4837FE2B84F1AA00112D01 /* Document+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Extension.swift"; sourceTree = "<group>"; };
+		0B4838172B85D8B000112D01 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		0B48381A2B85DE7000112D01 /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 		0BB6C19B2B7C92ED00D93950 /* SmartPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB6C19E2B7C92ED00D93950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BB6C1A02B7C92ED00D93950 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +97,9 @@
 				0BB6C22D2B83624D00D93950 /* FSCalendar in Frameworks */,
 				0BB6C1BA2B7C948500D93950 /* Toast in Frameworks */,
 				0BB6C2012B7DF0C400D93950 /* Realm in Frameworks */,
+				0B4838132B85D88900112D01 /* DGChartsDynamic in Frameworks */,
 				0BB6C2032B7DF0C400D93950 /* RealmSwift in Frameworks */,
+				0B4838112B85D88900112D01 /* DGCharts in Frameworks */,
 				0BB6C1BD2B7C949400D93950 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +107,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B4838142B85D89200112D01 /* ChartView */ = {
+			isa = PBXGroup;
+			children = (
+				0B4838162B85D89B00112D01 /* ViewController */,
+				0B4838152B85D89900112D01 /* View */,
+			);
+			path = ChartView;
+			sourceTree = "<group>";
+		};
+		0B4838152B85D89900112D01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0B4838162B85D89B00112D01 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0B4838172B85D8B000112D01 /* ChartViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0B4838192B85DE6500112D01 /* DetailImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0B48381A2B85DE7000112D01 /* DetailImageView.swift */,
+			);
+			path = DetailImageView;
+			sourceTree = "<group>";
+		};
 		0BB6C1922B7C92ED00D93950 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +174,8 @@
 		0BB6C1B22B7C943700D93950 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0B4838192B85DE6500112D01 /* DetailImageView */,
+				0B4838142B85D89200112D01 /* ChartView */,
 				0BB6C21D2B80ADBD00D93950 /* SelectPriority */,
 				0BB6C2142B7E64BF00D93950 /* DetailView */,
 				0BB6C2102B7E4EEA00D93950 /* SelectCategory */,
@@ -377,6 +419,8 @@
 				0BB6C2002B7DF0C400D93950 /* Realm */,
 				0BB6C2022B7DF0C400D93950 /* RealmSwift */,
 				0BB6C22C2B83624D00D93950 /* FSCalendar */,
+				0B4838102B85D88900112D01 /* DGCharts */,
+				0B4838122B85D88900112D01 /* DGChartsDynamic */,
 			);
 			productName = SmartPush;
 			productReference = 0BB6C19B2B7C92ED00D93950 /* SmartPush.app */;
@@ -412,6 +456,7 @@
 				0BB6C1BE2B7C94A400D93950 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				0BB6C1FF2B7DF0C400D93950 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				0BB6C22B2B83624D00D93950 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				0B48380F2B85D88800112D01 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 0BB6C19C2B7C92ED00D93950 /* Products */;
 			projectDirPath = "";
@@ -456,6 +501,7 @@
 				0BB6C2222B80B43800D93950 /* RealmManager.swift in Sources */,
 				0BB6C1CC2B7C99B500D93950 /* UINavigation+Extension.swift in Sources */,
 				0BB6C1C32B7C94EB00D93950 /* BaseUIView.swift in Sources */,
+				0B48381B2B85DE7000112D01 /* DetailImageView.swift in Sources */,
 				0BB6C1B72B7C947700D93950 /* BaseViewController.swift in Sources */,
 				0BB6C1DA2B7CBFF900D93950 /* HomeCollectionViewCell.swift in Sources */,
 				0B4837FF2B84F1AA00112D01 /* Document+Extension.swift in Sources */,
@@ -468,6 +514,7 @@
 				0BB6C1C52B7C953C00D93950 /* HomeViewController.swift in Sources */,
 				0BB6C21F2B80ADD400D93950 /* SelectPriorityViewController.swift in Sources */,
 				0BB6C1E72B7CE3D000D93950 /* PushModel.swift in Sources */,
+				0B4838182B85D8B000112D01 /* ChartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +741,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B48380F2B85D88800112D01 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		0BB6C1B82B7C948500D93950 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
@@ -737,6 +792,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B4838102B85D88900112D01 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B48380F2B85D88800112D01 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		0B4838122B85D88900112D01 /* DGChartsDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B48380F2B85D88800112D01 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGChartsDynamic;
+		};
 		0BB6C1B92B7C948500D93950 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0BB6C1B82B7C948500D93950 /* XCRemoteSwiftPackageReference "Toast-Swift" */;

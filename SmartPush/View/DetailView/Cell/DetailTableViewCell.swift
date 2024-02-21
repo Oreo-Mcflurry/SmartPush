@@ -14,11 +14,12 @@ class DetailTableViewCell: BaseTableViewCell {
 	let categoryLabel = UILabel()
 	let checkButton = UIButton()
 	let starButton = UIButton()
-	let imagesView = UIImageView()
+	let imagesView = UIButton()
 
 	var id: UUID?
 	var tododelegate: TodoDelegate?
 	var starDelegate: StaredDelegate?
+	var completionHandler : ((_ AnyClass: UIViewController)->())?
 
 	override func configureHierarchy() {
 		// 와 contentView 이거... 까먹고 있었네요... 이거때문에 3시간 이상 날린거같은데....
@@ -68,8 +69,15 @@ class DetailTableViewCell: BaseTableViewCell {
 	}
 
 	override func configureView() {
-		self.checkButton.addTarget(self, action: #selector(todoButtonClicked), for: .touchUpInside)
-		self.starButton.addTarget(self, action: #selector(starButtonClicked), for: .touchUpInside)
+		checkButton.addTarget(self, action: #selector(todoButtonClicked), for: .touchUpInside)
+		starButton.addTarget(self, action: #selector(starButtonClicked), for: .touchUpInside)
+		imagesView.addTarget(self, action: #selector(imageClicked), for: .touchUpInside)
+	}
+
+	@objc func imageClicked() {
+		let vc = DetailImageView()
+		vc.imageView.image = imagesView.currentImage
+		completionHandler?(vc)
 	}
 
 	@objc func todoButtonClicked() {

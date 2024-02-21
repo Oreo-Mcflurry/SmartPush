@@ -8,110 +8,110 @@
 import UIKit
 import RealmSwift
 
-
-enum RealmManagerPlus {
-	case pushModel(update: Update?)
-	case category(name: String)
-
-	enum Update {
-		case star
-		case todo
-	}
-
-	var realm: Realm {
-		return try! Realm()
-	}
-
-	private func getModelType<T: RealmFetchable>() -> T.Type {
-		switch self {
-		case .pushModel:
-			return PushModel.self
-		case .category:
-			return Categorys.self
-		}
-	}
-
-	// MARK: - Create
-	func createData(_ model: Object) {
-		do {
-			try realm.write {
-				realm.add(model)
-			}
-		} catch {
-			print(error.localizedDescription)
-		}
-	}
-
-	// MARK: - Read
-	func fetchData<T: RealmFetchable>(type: T.Type) -> Results<T> {
-		return realm.objects(T.self)
-	}
-
-	// MARK: - Update
-	func updateDate(_ model: Object) {
-		do {
-			try realm.write {
-
-				let value: [String: Any?]
-				let item = model as! PushModel
-
-				switch self {
-				case .pushModel(let update):
-					switch update {
-					case .star:
-						item.stared.toggle()
-					case .todo:
-						item.complete.toggle()
-					case nil:
-						break
-					}
-					value = [
-						"id": item.id,
-						"addDate": item.addDate,
-						"complete": item.complete,
-						"stared": item.stared,
-						"title": item.title,
-						"memo": item.memo ?? "",
-						"deadline": item.deadline,
-						"category": item.category,
-						"priority": item.priority
-					]
-
-				case .category:
-
-					let item = model as! Categorys
-					value = [
-						"id": item.id,
-						"addDate": item.addDate,
-						"category": item.category
-					]
-				}
-				realm.create(self.getModelType(), value: value, update: .modified)
-			}
-		} catch {
-			print(error.localizedDescription)
-		}
-	}
-
-	// MARK: - Delete
-	func deleteData(_ id: UUID) {
-		do {
-			try realm.write {
-				if let data = realm.object(ofType: self.getModelType(), forPrimaryKey: id) {
-					// if case문을 배워놓고 쓸대가 없다고 생각했는데 이런곳에 쓰면 좋겠더라구요
-					if case .category = self {
-						realm.objects(PushModel.self).where { $0.category.category == (data as! PushModel).category?.category }.forEach {
-							$0.category?.category = nil
-						}
-					}
-					realm.delete(data)
-				}
-			}
-		} catch {
-			print(error.localizedDescription)
-		}
-	}
-}
+//enum RealmManagerPlus {
+//	case pushModel(update: Update?)
+//	case category(name: String)
+//
+//	enum Update {
+//		case star
+//		case todo
+//	}
+//
+//	var realm: Realm {
+//		return try! Realm()
+//	}
+//
+//	private func getModelType() -> Object: RealmFetchable {
+//		switch self {
+//		case .pushModel:
+//			return PushModel.self
+//		case .category:
+//			return Categorys.self
+//		}
+//	}
+//
+//	// MARK: - Create
+//	func createData(_ model: Object) {
+//		do {
+//			try realm.write {
+//				realm.add(model)
+//			}
+//		} catch {
+//			print(error.localizedDescription)
+//		}
+//	}
+//
+//	// MARK: - Read
+//	func fetchData() -> Results<Object> {
+//		let objectType: AnyClass = self.getModelType()
+//		 return realm.objects(objectType)
+//	}
+//
+//	// MARK: - Update
+//	func updateDate(_ model: Object) {
+//		do {
+//			try realm.write {
+//
+//				let value: [String: Any?]
+//				let item = model as! PushModel
+//
+//				switch self {
+//				case .pushModel(let update):
+//					switch update {
+//					case .star:
+//						item.stared.toggle()
+//					case .todo:
+//						item.complete.toggle()
+//					case nil:
+//						break
+//					}
+//					value = [
+//						"id": item.id,
+//						"addDate": item.addDate,
+//						"complete": item.complete,
+//						"stared": item.stared,
+//						"title": item.title,
+//						"memo": item.memo ?? "",
+//						"deadline": item.deadline,
+//						"category": item.category,
+//						"priority": item.priority
+//					]
+//
+//				case .category:
+//
+//					let item = model as! Categorys
+//					value = [
+//						"id": item.id,
+//						"addDate": item.addDate,
+//						"category": item.category
+//					]
+//				}
+//				realm.create(self.getModelType(), value: value, update: .modified)
+//			}
+//		} catch {
+//			print(error.localizedDescription)
+//		}
+//	}
+//
+//	// MARK: - Delete
+//	func deleteData(_ id: UUID) {
+//		do {
+//			try realm.write {
+//				if let data = realm.object(ofType: self.getModelType(), forPrimaryKey: id) {
+//					// if case문을 배워놓고 쓸대가 없다고 생각했는데 이런곳에 쓰면 좋겠더라구요
+//					if case .category = self {
+//						realm.objects(PushModel.self).where { $0.category.category == (data as! PushModel).category?.category }.forEach {
+//							$0.category?.category = nil
+//						}
+//					}
+//					realm.delete(data)
+//				}
+//			}
+//		} catch {
+//			print(error.localizedDescription)
+//		}
+//	}
+//}
 
 
 // TODO: - Delete
@@ -230,13 +230,13 @@ class RealmManager {
 	func updateItem(_ item: PushModel) {
 		do {
 			try realm.write {
-				let value: [String: Any] = [
+				let value: [String: Any?] = [
 					"id": item.id,
 					"addDate": item.addDate,
 					"complete": item.complete,
 					"stared": item.stared,
 					"title": item.title,
-					"memo": item.memo ?? "",
+					"memo": item.memo,
 					"deadline": item.deadline,
 					"category": item.category,
 					"priority": item.priority
