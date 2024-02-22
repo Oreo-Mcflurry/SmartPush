@@ -11,7 +11,11 @@ import RealmSwift
 class HomeViewController: BaseViewController {
 
 	let homeView = HomeView()
-	var datas: Results<PushModel>!
+	var datas: Results<PushModel>! {
+		didSet {
+			print("PushModel")
+		}
+	}
 	var category: Results<Categorys>!
 
 	override func loadView() {

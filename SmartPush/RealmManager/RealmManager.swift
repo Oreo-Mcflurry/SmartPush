@@ -134,9 +134,19 @@ class RealmRepository {
 
 class DBObserver {
 	static let shared = DBObserver()
-	private init() { }
+	private init() {
+		let realm = try! Realm()
+		pushModel = realm.objects(PushModel.self)
+	}
 
 	private var closures: [(AnyClass, (()->Void))] = []
+
+	private var pushModel: Results<PushModel>! {
+		didSet {
+			print("123123")
+			occurEvent()
+		}
+	}
 
 	func occurEvent() {
 		for item in closures {
@@ -161,7 +171,7 @@ class RealmManager {
 	}
 
 	private func changeValue() {
-		DBObserver.shared.occurEvent()
+//		DBObserver.shared.occurEvent()
 	}
 
 	func getPriority(withPriority item: Int) -> String {
