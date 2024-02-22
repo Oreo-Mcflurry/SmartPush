@@ -18,17 +18,8 @@ class PushModel: Object {
 	@Persisted var deadlineDate: Date
 	@Persisted var category: Categorys?
 	@Persisted var priority: Int
-	@objc dynamic internal var _isDeleted = false
-	var isDeleted: Bool {
-		get {return _isDeleted}
-		set {
-			// do willSet stuff
-			_isDeleted = newValue
-		}
-	}
-	override class func ignoredProperties() -> [String] {
-		return ["isDeleted"]
-	}
+	
+	
 
 	init(title: String, memo: String? = nil, deadline: Date, category: Categorys?, priority: Int) {
 		self.title = title

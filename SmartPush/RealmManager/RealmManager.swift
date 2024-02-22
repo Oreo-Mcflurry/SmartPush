@@ -137,16 +137,20 @@ class DBObserver {
 	private init() {
 		let realm = try! Realm()
 		pushModel = realm.objects(PushModel.self)
+
+		token = pushModel.observe { changes in
+			switch changes {
+			case .initial, .update:
+				self.occurEvent()
+			case .error(let error):
+				print(error)
+			}
+		}
 	}
 
 	private var closures: [(AnyClass, (()->Void))] = []
-
-	private var pushModel: Results<PushModel>! {
-		didSet {
-			print("123123")
-			occurEvent()
-		}
-	}
+	var token : NotificationToken?
+	private var pushModel: Results<PushModel>!
 
 	func occurEvent() {
 		for item in closures {
