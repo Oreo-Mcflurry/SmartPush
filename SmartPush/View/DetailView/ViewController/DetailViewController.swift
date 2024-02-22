@@ -23,17 +23,20 @@ class DetailViewController: BaseViewController {
 	var datas: Results<PushModel>!
 	var category: Categorys? = nil
 
+	deinit {
+		print("DetailView deinit")
+	}
+
 	override func loadView() {
 		self.view = detailView
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		detailView.tableView.reloadData()
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		DBObserver.shared.bind(withObject: DetailViewController.self) { [weak self] in
+			print("DetailViewController")
+			self?.detailView.tableView.reloadData()
+		}
 	}
 
 	override func configureView() {
@@ -49,21 +52,21 @@ class DetailViewController: BaseViewController {
 
 		var menuItems: [UIAction] {
 			return [
-				UIAction(title: "날짜 순", image: nil, handler: { (_) in
-					self.datas = self.datas.sorted(byKeyPath: "deadline", ascending: true)
-					self.detailView.tableView.reloadData()
+				UIAction(title: "날짜 순", image: nil, handler: { [weak self] (_) in
+					self?.datas = self?.datas.sorted(byKeyPath: "deadline", ascending: true)
+					self?.detailView.tableView.reloadData()
 				}),
-				UIAction(title: "날짜 역순", image: nil, handler: { (_) in
-					self.datas = self.datas.sorted(byKeyPath: "deadline", ascending: false)
-					self.detailView.tableView.reloadData()
+				UIAction(title: "날짜 역순", image: nil, handler: { [weak self] (_) in
+					self?.datas = self?.datas.sorted(byKeyPath: "deadline", ascending: false)
+					self?.detailView.tableView.reloadData()
 				}),
-				UIAction(title: "중요도 순", image: nil, handler: { (_) in
-					self.datas = self.datas.sorted(byKeyPath: "priority", ascending: true)
-					self.detailView.tableView.reloadData()
+				UIAction(title: "중요도 순", image: nil, handler: { [weak self] (_) in
+					self?.datas = self?.datas.sorted(byKeyPath: "priority", ascending: true)
+					self?.detailView.tableView.reloadData()
 				}),
-				UIAction(title: "중요도 역순", image: nil, handler: { (_) in
-					self.datas = self.datas.sorted(byKeyPath: "priority", ascending: false)
-					self.detailView.tableView.reloadData()
+				UIAction(title: "중요도 역순", image: nil, handler: { [weak self] (_) in
+					self?.datas = self?.datas.sorted(byKeyPath: "priority", ascending: false)
+					self?.detailView.tableView.reloadData()
 				}),
 			]
 		}
@@ -90,8 +93,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.checkButton.setImage(RealmManager().getTodoSign(withBool: datas[indexPath.row].complete), for: .normal)
 		cell.starButton.setImage(RealmManager().getStarSign(withBool: datas[indexPath.row].stared), for: .normal)
 		cell.imagesView.setImage(RealmManager().loadImageToDocument(withId: "\(datas[indexPath.row].id)"), for: .normal)
-		cell.completionHandler = { vc in
-			self.present(vc, animated: true)
+		cell.completionHandler = { [weak self] vc in
+			self?.present(vc, animated: true)
 		}
 		return cell
 	}

@@ -11,6 +11,8 @@ import SnapKit
 class DetailView: BaseUIView {
 	let tableView = UITableView()
 
+	weak var viewController: BaseViewController?
+
 	override func configureHierarchy() {
 		addSubview(tableView)
 	}

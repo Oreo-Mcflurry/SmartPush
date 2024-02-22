@@ -28,6 +28,10 @@ class AddScheduleViewController: BaseViewController, UIImagePickerControllerDele
 
 	var isEdit = false
 
+	deinit {
+		print("AddView Deinit")
+	}
+
 	var saveButtonEnabled: Bool {
 		return addView.senderTextField.text!.isEmpty
 	}
@@ -37,6 +41,7 @@ class AddScheduleViewController: BaseViewController, UIImagePickerControllerDele
 	}
 
 	override func viewDidLoad() {
+		print("123")
 		super.viewDidLoad()
 		if isEdit {
 			addView.imageView.image = RealmManager().loadImageToDocument(withId: "\(id)")

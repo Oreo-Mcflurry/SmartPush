@@ -17,8 +17,8 @@ class DetailTableViewCell: BaseTableViewCell {
 	let imagesView = UIButton()
 
 	var id: UUID?
-	var tododelegate: TodoDelegate?
-	var starDelegate: StaredDelegate?
+	weak var tododelegate: TodoDelegate?
+	weak var starDelegate: StaredDelegate?
 	var completionHandler : ((_ AnyClass: UIViewController)->())?
 
 	override func configureHierarchy() {

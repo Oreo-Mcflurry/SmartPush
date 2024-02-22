@@ -19,13 +19,19 @@ class HomeViewController: BaseViewController {
 	}
 
 	@objc func detectChangeValue() {
+
 		homeView.collectionView.reloadData()
 		homeView.tableView.reloadData()
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		NotificationCenter.default.addObserver(self, selector: #selector(detectChangeValue), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+//		NotificationCenter.default.addObserver(self, selector: #selector(detectChangeValue), name: NSNotification.Name(rawValue: "reloadData"), object: nil)
+		DBObserver.shared.bind(withObject: HomeViewController.self) {
+			print("HomeViewController")
+			self.homeView.collectionView.reloadData()
+			self.homeView.tableView.reloadData()
+		}
 		datas = RealmManager().fetchData()
 		category = RealmManager().fetchCategory()
 	}

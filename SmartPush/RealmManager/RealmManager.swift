@@ -18,8 +18,8 @@ class RealmRepository {
 		return try! Realm()
 	}
 
-	// MARK: - Create
-	func createData<T: RealmFetchable>(type: T.Type) -> Results<T> {
+	// MARK: - Read
+	func fetchData<T: RealmFetchable>(type: T.Type) -> Results<T> {
 		return realm.objects(type)
 	}
 }
@@ -130,15 +130,36 @@ class RealmRepository {
 //}
 
 
-// TODO: - Delete
-// 으으아악 enum이나 제네릭 같은걸로 묶어야 할거같은데..
+class DBObserver {
+	static let shared = DBObserver()
+	private init() { }
+
+	private var closures: [(AnyClass, (()->Void))] = []
+
+	func occurEvent() {
+		for item in closures {
+			DispatchQueue.main.async {
+				item.1()
+			}
+		}
+	}
+
+	func bind(withObject object: AnyClass, _ newClosure: @escaping ()->Void) {
+		for item in closures where item.0 == object { closures = closures.filter { $0.0 != object } }
+		print("add closure", object)
+		self.closures.append((object, newClosure))
+	}
+}
+
+
+
 class RealmManager {
 	var realm: Realm {
 		return try! Realm()
 	}
 
 	private func changeValue() {
-		NotificationCenter.default.post(name: NSNotification.Name("reloadData"), object: nil, userInfo: ["reloadData": true])
+		DBObserver.shared.occurEvent()
 	}
 
 	func getPriority(withPriority item: Int) -> String {
