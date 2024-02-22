@@ -129,6 +129,8 @@ class RealmRepository {
 //	}
 //}
 
+// https://velog.io/@yuiop1029/iOS-연구해본-Database-Event-Driven-Reloading-View
+// 이런식으로 사용해도 Observer Pattern이라고 할 수 있는지 궁금해요. 패턴에 정답은 없다고 하지만...
 
 class DBObserver {
 	static let shared = DBObserver()
